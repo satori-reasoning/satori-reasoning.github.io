@@ -1,0 +1,131 @@
+baseURL: "https://satori-reasoning.github.io/"
+title: Satori
+paginate: 5
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+ignoreErrors: ["error-remote-getjson"]
+
+# googleAnalytics: UA-123-45
+googleAnalytics: G-BP9G7L138H
+
+defaultContentLanguage: en
+languages:
+  en:
+    languageName: English
+    weight: 1
+  # zh:
+  #   languageName: 简体中文
+  #   weight: 2
+  #   params:
+  #     date_format: "2006年1月2日"
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Satori
+  description: "Satori"
+  keywords: ["multi-modal", "machine learning", "blog"]
+  author: Satori Team
+  # author: ["Me", "You"] # multiple authors
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+
+  # custom site variables
+  date_format: "January 2, 2006"
+  default_theme: light # dark, light
+  disable_theme_toggle: true
+  disable_special_first_post: false
+  disable_scroll_to_top: false
+  displayFullLangName: true
+
+  # custom site and page variables
+  show_share_buttons: true
+  show_bread_crumbs: true
+  hide_meta: false
+  math: false
+
+  # single page only
+  show_code_copy_buttons: true
+  show_word_count: true
+  use_hugo_toc: true
+  show_toc: false
+  toc_open: false
+  comments: false
+  show_reading_time: true
+  show_post_nav_links: false
+
+  # list page only
+  hide_summary: false
+  show_rss_button_in_section_term_list: false
+
+  assets:
+    disable_hljs: true # to disable highlight.js
+    disable_fingerprinting: false
+    disable_scroll_bar_style: false
+
+    favicon: /img/logo.png
+
+  label:
+    text: "Satori"
+    iconHeight: 35
+
+  cover:
+    link_full_images: true
+    responsive_images: true
+    hidden: false # hide everywhere but not in structured data
+    hidden_in_list: false # hide on list pages and home
+    hidden_in_single: false # hide on single page
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    findAllMatches: false
+    minMatchCharLength: 2
+    keys: ["title", "summary"]
+
+    threshold: 0.1
+    ignoreLocation: false
+    location: 0
+    distance: 1000
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 5
+    - identifier: api
+      name: Resources
+      url: /resources
+      weight: 10
+    - identifier: blog
+      name: Blog
+      url: /blog/
+      weight: 20
+
+pygmentsUseClasses: true
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      footnote: true
+  highlight:
+    style: vs
+    noClasses: false
+    # anchorLineNos: true
+    codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # style: monokai
+outputs:
+  home:
+    - HTML
+    - JSON # is necessarylog
