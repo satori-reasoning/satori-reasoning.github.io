@@ -91,7 +91,7 @@ To address these two challenges, we propose a two-stage training framework\*:
   2) A large-scale self-improvement stage that utilizes reinforcement learning with "Restart and Explore" (RAE) techniques.
 ![schematic](/img/schematic.png)
 
-<p style="font-size: 14px;"> <b>*Note</b>: <i>our concurrent work <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> adopts a similar training framework of small-scale cold-start SFT followed by large-scale RL training. Although both works coincide in this high-level idea, our work differs from R1 in key methodologies, including the data synthesis framework and RL algorithms.</i></p>
+<p style="font-size: 14px;"> <p>*Note</p>: <i>our concurrent work <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> adopts a similar training framework of small-scale cold-start SFT followed by large-scale RL training. Although both works coincide in this high-level idea, our work differs from R1 in key methodologies, including the data synthesis framework and RL algorithms.</i></p>
 
 ### **Format Tuning Through Imitation Learning** 
 This stage aims to fine-tune a pre-trained base LLM to imitate a few demonstrated reasoning trajectories with COAT reasoning format. To synthesize such COAT trajectories that incorporate trials
@@ -187,7 +187,7 @@ We now have a system of two equations:
 1. $$ s \left( 4 - \frac{t}{60} \right) = 9 $$
 2. $$ (s + 2) \left( 2.4 - \frac{t}{60} \right) = 9 $$
 
-Let's solve these equations step by step. First, expand both equations:
+<p>Let's solve these equations step by step. First, expand both equations:</p>
 
 1. $$ 4s - \frac{st}{60} = 9 $$
 
@@ -441,7 +441,7 @@ Wait. The mistake is that the solution starts analyzing the given information an
 Let's re-evaluate the problem step-by-step to determine if the pelikan brings an oil tank for the dragon.
 </span></p>
 
-1. <b>Liger's Friends and Occupation:</b>
+1. <p>Liger's Friends and Occupation:</p>
    - The liger has 1 friend that is easy going and 3 friends that are not.
    
    - The liger is a physiotherapist.
@@ -450,7 +450,7 @@ Let's re-evaluate the problem step-by-step to determine if the pelikan brings an
    
    - Since the liger has 4 friends (1 easy going + 3 not), the liger will manage to convince the pelikan.
 
-2.<b>Seal's Football and Box:</b>
+2. <p>Seal's Football and Box:</p>
    - The seal has a football with a radius of 22 inches.
    
    - The dimensions of the box are 52.3 x 43.6 x 36.1 inches.
@@ -467,7 +467,7 @@ Let's re-evaluate the problem step-by-step to determine if the pelikan brings an
    
    - Therefore, the seal will bring an oil tank for the pelikan.
 
-3.<b>Conclusion Based on Rules:</b>
+3.<p>Conclusion Based on Rules:</p>
    - From Rule4: If you see that something hides the cards that she has from the bee but does not build a power plant near the green fields of the husky, what can you certainly conclude? You can conclude that it does not bring an oil tank for the pelikan.
    
      - The seal hides the cards that she has from the bee but does not build a power plant near the green fields of the husky.
@@ -478,7 +478,7 @@ Let's re-evaluate the problem step-by-step to determine if the pelikan brings an
    
    - Given the rules and the information, the most logical conclusion is that the seal will bring an oil tank for the pelikan, despite the contradiction.
 
-4.<b>Final Conclusion:</b>
+4.<p>Final Conclusion:</p>
 
    - Based on the analysis of the rules and the given information, the seal will bring an oil tank for the pelikan.
 
@@ -540,7 +540,7 @@ First, we need to understand the function $f$ and how it processes the given inp
 Wait. Let's clarify this. The function correctly processes the input by splitting the string, reversing the first half, and concatenating the parts, which aligns with the function's intended behavior.
 </span></p>
 
-Let's break down the function step by step with the given input: "ertubwi", "p", 5.
+<p>Let's break down the function step by step with the given input: "ertubwi", "p", 5.</p>
 
 1. **Split the string:** The function uses <i>text.rsplit(sep, maxsplit)</i>. Here, <i>text = "ertubwi"</i>, <i>sep = "p"</i>, and <i>maxsplit = 5</i>. Since "ertubwi" does not contain the separator "p", <i>text.rsplit(sep, maxsplit)</i> will split the string into a list containing the entire string and four empty strings (because <i>maxsplit</i> is 5, but there are no occurrences of "p"):
 
@@ -574,12 +574,12 @@ Let's break down the function step by step with the given input: "ertubwi", "p",
    </i>
 
 
-However, since the second half should only include the remaining elements after the first half, we need to re-evaluate the correct approach. Let's consider the correct approach:
+<p>However, since the second half should only include the remaining elements after the first half, we need to re-evaluate the correct approach. Let's consider the correct approach:</p>
 
 
 1. **Split the string:** Since "ertubwi" does not contain "p", we need to consider the correct approach to split and reverse.
 
-Given the function's behavior and the input, the correct approach is to split the string into two equal parts and reverse the first part.
+<p>Given the function's behavior and the input, the correct approach is to split the string into two equal parts and reverse the first part.</p>
 
 1. **Split the string:** "ertubwi" into "ertu" and "bwi".
 
@@ -595,7 +595,7 @@ Wait. The mistake is in the incorrect handling of the split and the subsequent c
 Let's switch to a new solution. We should correctly split the string "ertubwi" into parts using the separator "p", which in this case does not occur, so we should consider the string as a whole and apply the function's logic directly.
 </span></p>
 
-Let's re-evaluate the function step-by-step with the given input: "ertubwi", "p", 5.
+<p>Let's re-evaluate the function step-by-step with the given input: "ertubwi", "p", 5.</p>
 
 1. **Split the string:** Since "ertubwi" does not contain the separator "p", the function will split it into a list with one element: <i>["ertubwi"]</i>.
 
@@ -621,7 +621,7 @@ You are given the following facts:
 
 2. Christopher Reeve required a portable ventilator after his injury.
 
-3. At one point, Christopher Reeve's treatment was costing $400,000 yearly.
+3. <p>At one point, Christopher Reeve's treatment was costing $400,000 yearly.</p>
 
 Based on the facts above, answer the following question. Your final answer should be either "True" or "False".
 
@@ -634,7 +634,7 @@ The question asks whether Christopher Reeve would have lived if he were poor.
 
 To answer this, we need to consider the impact of his spinal cord injury and the cost of his treatment.
 
-Christopher Reeve's spinal cord injury left him a quadriplegic, which means he was paralyzed from the neck down. This made it difficult for him to move and perform many daily activities.
+<p>Christopher Reeve's spinal cord injury left him a quadriplegic, which means he was paralyzed from the neck down. This made it difficult for him to move and perform many daily activities.</p>
 
 The fact that he required a portable ventilator indicates that he was dependent on mechanical assistance for breathing.
 
@@ -650,7 +650,7 @@ Wait. The question is not about the impact of his condition or the cost of treat
 Let's switch to a new solution. Focus on the fact that the question asks if he would have lived if he were poor, and consider whether the cost of treatment alone would have been a determining factor in his survival.
 </span></p>
 
-Let's re-evaluate the question more carefully. The question asks if Christopher Reeve would have lived if he were poor.
+<p>Let's re-evaluate the question more carefully. The question asks if Christopher Reeve would have lived if he were poor.</p>
 
 The key factors to consider are:
 
@@ -660,7 +660,7 @@ The key factors to consider are:
 
 3. The impact of poverty on his ability to access and afford medical care.
 
-Christopher Reeve's spinal cord injury was severe, and he required specialized medical equipment and ongoing treatment. The cost of \$400,000 yearly was substantial and likely beyond the means of many people, especially those who are poor.
+<p>Christopher Reeve's spinal cord injury was severe, and he required specialized medical equipment and ongoing treatment. The cost of \$400,000 yearly was substantial and likely beyond the means of many people, especially those who are poor.</p>
 
 If Christopher Reeve were poor, he would likely not have been able to afford this level of medical care. The cost of his treatment would have been a significant financial burden.
 
@@ -729,7 +729,7 @@ Wait. The explanation does not directly address the options provided in the ques
 Let's switch to a new solution. Analyze each option to determine which one best fits the implications of the Harrod-Domar model and the Keynesian theory of savings for poor countries.
 </span></p>
 
-Let's re-evaluate the options given:
+<p>Let's re-evaluate the options given:</p>
 
 (A) Rich and poor countries will experience the same growth rates regardless of savings rates.
   - This is not true because the Harrod-Domar model suggests that growth rates are determined by the savings rate and the capital-output ratio, which can differ between rich and poor countries.
