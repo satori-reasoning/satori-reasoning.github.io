@@ -48,7 +48,7 @@ show_word_count: true
     overflow-y: auto;
     padding: 10px;
     background-color: #f8f8f8; 
-    font-family: Consolas, Monaco, 'Courier New';, monospace;
+    font-family: 'Menlo', Consolas, Monaco, 'Courier New', monospace;
     font-size: 14px;
     line-height: 1.5;
     white-space: pre-wrap;
@@ -57,7 +57,7 @@ show_word_count: true
 }
 
 .code-box b {
-    font-weight: 900 !important; /* Force stronger boldness */
+    font-weight: 600 !important; /* Force stronger boldness */
     color: #111111; /* Change text color to something more vibrant */
 }
 
@@ -451,7 +451,7 @@ Wait. The mistake is that the solution starts analyzing the given information an
 Let&#39;s re-evaluate the problem step-by-step to determine if the pelikan brings an oil tank for the dragon.
 </span>
 
-1. Liger&#39;s Friends and Occupation:
+1. **Liger&#39;s Friends and Occupation:**
    - The liger has 1 friend that is easy going and 3 friends that are not.
    
    - The liger is a physiotherapist.
@@ -460,7 +460,7 @@ Let&#39;s re-evaluate the problem step-by-step to determine if the pelikan bring
    
    - Since the liger has 4 friends (1 easy going + 3 not), the liger will manage to convince the pelikan.
 
-2. Seal&#39;s Football and Box:
+2. **Seal&#39;s Football and Box:**
    - The seal has a football with a radius of 22 inches.
    
    - The dimensions of the box are 52.3 x 43.6 x 36.1 inches.
@@ -477,7 +477,7 @@ Let&#39;s re-evaluate the problem step-by-step to determine if the pelikan bring
    
    - Therefore, the seal will bring an oil tank for the pelikan.
 
-3.Conclusion Based on Rules:
+3. **Conclusion Based on Rules:**
    - From Rule4: If you see that something hides the cards that she has from the bee but does not build a power plant near the green fields of the husky, what can you certainly conclude? You can conclude that it does not bring an oil tank for the pelikan.
    
      - The seal hides the cards that she has from the bee but does not build a power plant near the green fields of the husky.
@@ -488,7 +488,7 @@ Let&#39;s re-evaluate the problem step-by-step to determine if the pelikan bring
    
    - Given the rules and the information, the most logical conclusion is that the seal will bring an oil tank for the pelikan, despite the contradiction.
 
-4.Final Conclusion:
+4. **Final Conclusion:**
 
    - Based on the analysis of the rules and the given information, the seal will bring an oil tank for the pelikan.
 
@@ -679,6 +679,167 @@ Given the severity of his condition and the high cost of treatment, it is reason
 Therefore, the final answer is: $\boxed{\text{False}}$.
 </div>
 
+### **Tabular Reasoning (TableBench)**
+
+#### **Problem Statement:**
+<div class="code-box">
+You are given a table with the following data:
+  <div class="code-box">
+    <table style="width: 80%; font-size: 12px; margin: 0 auto;">
+        <thead>
+            <tr>
+                <th style="font-size: 12px;"><strong>Peak</strong></th>
+                <th style="font-size: 12px;"><strong>Country</strong></th>
+                <th style="font-size: 12px;"><strong>Elevation (m)</strong></th>
+                <th style="font-size: 12px;"><strong>Prominence (m)</strong></th>
+                <th style="font-size: 12px;"><strong>Col (m)</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mount Stanley</td>
+                <td>Democratic Republic of the Congo / Uganda</td>
+                <td>5109</td>
+                <td>3951</td>
+                <td>1158</td>
+            </tr>
+            <tr>
+                <td>Mount Karisimbi</td>
+                <td>Rwanda / Democratic Republic of the Congo</td>
+                <td>4507</td>
+                <td>3312</td>
+                <td>1195</td>
+            </tr>
+            <tr>
+                <td>Kinyeti</td>
+                <td>South Sudan</td>
+                <td>3187</td>
+                <td>2120</td>
+                <td>1067</td>
+            </tr>
+            <tr>
+                <td>Emogadong</td>
+                <td>South Sudan</td>
+                <td>2623</td>
+                <td>1730</td>
+                <td>893</td>
+            </tr>
+            <tr>
+                <td>Kabobo</td>
+                <td>Democratic Republic of the Congo</td>
+                <td>2725</td>
+                <td>1604</td>
+                <td>1121</td>
+            </tr>
+            <tr>
+                <td>Mont Mohi</td>
+                <td>Democratic Republic of the Congo</td>
+                <td>3480</td>
+                <td>1592</td>
+                <td>1888</td>
+            </tr>
+            <tr>
+                <td>Wuhevi</td>
+                <td>Democratic Republic of the Congo</td>
+                <td>3095</td>
+                <td>1570</td>
+                <td>1525</td>
+            </tr>
+            <tr>
+                <td>Mount Muhabura</td>
+                <td>Rwanda / Uganda</td>
+                <td>4127</td>
+                <td>1530</td>
+                <td>2597</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="text-align: center;"><strong>Table of peaks and their details.</strong></p>
+  </div>
+Based on the table, answer the following question. If your answer is extracted from the table, make sure that the answer is exactly the same as the corresponding content in the table.
+
+What is the average prominence of mountain peaks in the Democratic Republic of the Congo that have an elevation of at least 3000 meters?
+</div>
+
+#### **Satori&#39;s Response:**
+<div class="code-box">
+First, we identify the mountain peaks in the Democratic Republic of the Congo that have an elevation of at least 3000 meters. From the table, these peaks are:
+
+- Mount Stanley (5109 meters)
+
+- Mount Karisimbi (4507 meters)
+
+- Kabobo (2725 meters)
+
+- Mont Mohi (3480 meters)
+
+- Wuhevi (3095 meters)
+
+Next, we check the prominences of these peaks:
+
+- Mount Stanley: 3951 meters
+
+- Mount Karisimbi: 3312 meters
+
+- Kabobo: 1604 meters
+
+- Mont Mohi: 1592 meters
+
+- Wuhevi: 1570 meters
+
+We sum the prominences of these peaks:
+
+$$ 3951 + 3312 + 1604 + 1592 + 1570 $$
+
+Let's calculate the sum step by step:
+
+$$ 3951 + 3312 = 7263, 7263 + 1604 = 8867,  8867 + 1592 = 10459, 10459 + 1570 = 12029 $$
+
+There are 5 peaks, so we divide the total sum of the prominences by 5 to find the average: $ \frac{12029}{5} = 2405.8 $
+
+
+Therefore, the average prominence of mountain peaks in the Democratic Republic of the Congo that have an elevation of at least 3000 meters is $\boxed{2405.8}$.
+
+<span style="color: #B8860B;">
+Wait. The mistake is including Kabobo, which has an elevation of 2725 meters, which is less than 3000 meters.</span>
+<span style="color: blue;">
+Let&#39;s switch to a new solution. Only consider the peaks with elevations of at least 3000 meters, which are Mount Stanley, Mount Karisimbi, Mont Mohi, and Wuhevi.
+</span>
+
+Identify the mountain peaks in the Democratic Republic of the Congo with an elevation of at least 3000 meters:
+
+- Mount Stanley (5109 meters)
+
+- Mount Karisimbi (4507 meters)
+
+- Mont Mohi (3480 meters)
+
+- Wuhevi (3095 meters)
+
+Check the prominences of these peaks:
+
+- Mount Stanley: 3951 meters
+
+- Mount Karisimbi: 3312 meters
+
+- Mont Mohi: 1592 meters
+
+- Wuhevi: 1570 meters
+
+Sum the prominences of these peaks:
+
+$$ 3951 + 3312 + 1592 + 1570 $$
+
+Calculate the sum step by step:
+
+$$ 3951 + 3312 = 7263, 7263 + 1592 = 8855,  8855 + 1570 = 10425 $$
+
+There are 4 peaks, so divide the total sum of the prominences by 4 to find the average:
+$ \frac{10425}{4} = 2606.25 $
+
+Therefore, the average prominence of mountain peaks in the Democratic Republic of the Congo that have an elevation of at least 3000 meters is $\boxed{2606.25}$.
+</div>
+
 ### **Domain-specific Reasoning (MMLUPro - Economics)**
 
 #### **Problem Statement:**
@@ -723,7 +884,7 @@ where $ s $ is the savings rate and $ k $ is the capital-output ratio.
 
 
 <span style="color: #B8860B;">
-Wait. The explanation of the Harrod-Domar model is correct but the step does not directly address the implications for poor countries in the context of the Keynesian theory of savings.
+Wait. The explanation of the Harrod-Domar model is correct but the step does not directly address the implications for poor countries in the context of the Keynesian theory of savings.</span>
 <span style="color: blue;">
 Let&#39;s switch to a new solution. Start by explaining how the Harrod-Domar model, when combined with the Keynesian theory of savings, suggests that higher savings rates in poor countries can lead to higher growth rates due to increased investment.
 </span>
@@ -734,7 +895,7 @@ The Harrod-Domar model suggests that the growth rate of an economy is determined
 In poor countries, where the capital stock is often lower relative to their population, a higher savings rate can lead to a higher capital stock over time. This increase in capital stock can then support higher levels of output and, consequently, higher growth rates.
 
 <span style="color: #B8860B;">
-Wait. The explanation does not directly address the options provided in the question, which are specific to the growth rates of poor countries.
+Wait. The explanation does not directly address the options provided in the question, which are specific to the growth rates of poor countries.</span>
 <span style="color: blue;">
 Let&#39;s switch to a new solution. Analyze each option to determine which one best fits the implications of the Harrod-Domar model and the Keynesian theory of savings for poor countries.
 </span>
