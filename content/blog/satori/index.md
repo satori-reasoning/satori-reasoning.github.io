@@ -570,7 +570,7 @@ Wait. Let&#39;s clarify this. The function correctly processes the input by spli
 
 Let&#39;s break down the function step by step with the given input: &#34;ertubwi&#34;, &#34;p&#34;, 5.
 
-1. **Split the string:** The function uses *text.rsplit(sep, maxsplit)*. Here, <i> text = &#34;ertubwi&#34; </i>, * sep = &#34;p&#34; *, and *maxsplit = 5*. Since &#34;ertubwi&#34; does not contain the separator &#34;p&#34;, <i>text.rsplit(sep, maxsplit)</i> will split the string into a list containing the entire string and four empty strings (because <i>maxsplit</i> is 5, but there are no occurrences of &#34;p&#34;):
+1. **Split the string:** The function uses *text.rsplit(sep, maxsplit)*. Here, <i> text = &#34;ertubwi&#34; </i>, sep = &#34;p&#34;, and *maxsplit = 5*. Since &#34;ertubwi&#34; does not contain the separator &#34;p&#34;, <i>text.rsplit(sep, maxsplit)</i> will split the string into a list containing the entire string and four empty strings (because <i>maxsplit</i> is 5, but there are no occurrences of &#34;p&#34;):
 
    <i>
    splitted = [&#34;ertubwi&#34;, &#34;&#34;, &#34;&#34;, &#34;&#34;, &#34;&#34;]
