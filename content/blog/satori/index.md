@@ -43,29 +43,6 @@ show_word_count: true
 
 
 <style>
-div {
-  quotes: none;
-}
-
-ol {
-  quotes: none;
-}
-
-p {
-  quotes: none;
-}
-
-em {
-  quotes: none;
-}
-
-.with-quote::before {
-  content: open-quote;
-}
-.with-quote::after {
-  content: close-quote;
-}
-
 .code-box {
     max-height: 350px;
     overflow-y: auto;
@@ -83,6 +60,11 @@ em {
     font-weight: 900 !important; /* Force stronger boldness */
     color: #111111; /* Change text color to something more vibrant */
 }
+
+.code-box b, .code-box strong {
+    font-weight: bold !important;
+}
+
 </style>
 
 
