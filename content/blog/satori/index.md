@@ -513,7 +513,7 @@ The final answer is: $\boxed{\text{False}}$.
 <div class="code-box">
 You are given the following function:
 
-<pre><code class="language-python">
+```python
 def f(text, sep, maxsplit):
     splitted = text.rsplit(sep, maxsplit)
     length = len(splitted)
@@ -521,7 +521,7 @@ def f(text, sep, maxsplit):
     new_splitted.reverse()
     new_splitted += splitted[length // 2:]
     return sep.join(new_splitted)
-</code></pre>
+```
 
 You are also given the following input (the order of the input is the same as the order of the input variables in the function):
 
@@ -938,18 +938,18 @@ We aim to contribute to open-source communities by supporting the development of
 
 ## **Satori Team Members**
 ### **Core Contributors**
-- [Maohao Shen](https://maohaos2.github.io/Maohao/), MIT
-- [Guangtao Zeng](https://chaoscodes.github.io/), SUTD
-- [Zhenting Qi](https://zhentingqi.github.io/), Harvard
+- [Maohao Shen, MIT](https://maohaos2.github.io/Maohao/)
+- [Guangtao Zeng, SUTD](https://chaoscodes.github.io/)
+- [Zhenting Qi, Harvard](https://zhentingqi.github.io/)
 ### **Contributors**
-   \*: Project lead
+<span>$&#8224;$</span>: Project lead
 - Zhang-Wei Hong, MIT
 - Zhenfang Chen, MIT-IBM Watson AI Lab
 - Wei Lu, SUTD
 - Gregory W. Wornell, MIT
 - Subhro Das, MIT-IBM Watson AI Lab
 - David Cox, MIT-IBM Watson AI Lab
-- Chuang Gan\*, UMass, MIT-IBM Watson AI Lab
+- Chuang Gan<span>$^&#8224;$</span>, UMass, MIT-IBM Watson AI Lab
 
 ## **Contact Information**
 For questions, please:
