@@ -354,11 +354,11 @@
 
 .post-content a.btn.external:after {
     position: relative;
-    right: -0.2em;
-    content: "↗";
+    right: -0.0em;
+    content: "";
     font-size: 1.166667em;
     font-weight: normal;
-    margin-left: -0.0625em;
+    margin-left: -0.0em;
 }
 
 .post-content figure > figcaption > h4 {
