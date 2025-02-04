@@ -315,14 +315,19 @@ The formula for the projection of vector \(\mathbf{v}\) onto vector \(\mathbf{w}
 $$
 \operatorname{proj}_{\mathbf{w}} \mathbf{v} = \frac{\mathbf{v} \cdot \mathbf{w}}{\mathbf{w} \cdot \mathbf{w}} \mathbf{w}
 $$
+
 The magnitude of the projection $\|\operatorname{proj}_{\mathbf{w}} \mathbf{v}\|$ is:
+
 $$
 \|\operatorname{proj}_{\mathbf{w}} \mathbf{v}\| = \left\| \frac{\mathbf{v} \cdot \mathbf{w}}{\mathbf{w} \cdot \mathbf{w}} \mathbf{w} \right\| = \left| \frac{\mathbf{v} \cdot \mathbf{w}}{\mathbf{w} \cdot \mathbf{w}} \right| \|\mathbf{w}\|
 $$
+
 Since $\|\mathbf{w}\| = 8$, we have $\mathbf{w} \cdot \mathbf{w} = 8^2 = 64$. Therefore, the expression for the magnitude of the projection becomes:
+
 $$
 \|\operatorname{proj}_{\mathbf{w}} \mathbf{v}\| = \left| \frac{\mathbf{v} \cdot \mathbf{w}}{64} \right| \cdot 8 = \frac{|\mathbf{v} \cdot \mathbf{w}|}{8}
 $$
+
 The dot product $\mathbf{v} \cdot \mathbf{w}$ can be expressed in terms of the magnitudes of $\mathbf{v}$ and $\mathbf{w}$ and the cosine of the angle $\theta$ between them:
 
 
