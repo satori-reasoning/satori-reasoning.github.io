@@ -27,7 +27,7 @@
     overflow-y: auto;
     padding: 10px;
     background-color: #f8f8f8; 
-    font-family: Consolas, Monaco, &#39;Courier New&#39;;, monospace;
+    font-family: &#39;Menlo&#39;, Consolas, Monaco, &#39;Courier New&#39;, monospace;
     font-size: 14px;
     line-height: 1.5;
     white-space: pre-wrap;
@@ -36,7 +36,7 @@
 }
 
 .code-box b {
-    font-weight: 900 !important; /* Force stronger boldness */
+    font-weight: 600 !important; /* Force stronger boldness */
     color: #111111; /* Change text color to something more vibrant */
 }
 
