@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blog on Satori</title>
-    <link>http://localhost:1313/blog/</link>
+    <link>https://satori-reasoning.github.io/blog/</link>
     <description>Recent content in Blog on Satori</description>
     <image>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://satori-reasoning.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://satori-reasoning.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 01 Feb 2025 12:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Feb 2025 12:00:00 +0800</lastBuildDate><atom:link href="https://satori-reasoning.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Satori: Reinforcement Learning with Chain-of-Action-Thought Enhances LLM Reasoning via Autoregressive Search</title>
-      <link>http://localhost:1313/blog/satori/</link>
+      <link>https://satori-reasoning.github.io/blog/satori/</link>
       <pubDate>Sat, 01 Feb 2025 12:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/blog/satori/</guid>
+      <guid>https://satori-reasoning.github.io/blog/satori/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Paper&lt;/a&gt;
 &lt;a href=&#34;https://github.com/satori-reasoning/Satori&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/Satori-reasoning&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Huggingface&lt;/a&gt;&lt;/p&gt;
