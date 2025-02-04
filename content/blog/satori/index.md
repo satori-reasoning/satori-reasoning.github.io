@@ -95,7 +95,7 @@ To address these two challenges, we propose a two-stage training framework\*:
   2) A large-scale self-improvement stage that utilizes reinforcement learning with "Restart and Explore" (RAE) techniques.
 ![schematic](/img/schematic.png)
 
-<p style="font-size: 14px;"> <b>Note:</b> <i>our concurrent work <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> adopts a similar training framework of small-scale cold-start SFT followed by large-scale RL training. Although both works coincide in this high-level idea, our work differs from R1 in key methodologies, including the data synthesis framework and RL algorithms.</i></p>
+<p style="font-size: 14px;"> <b>*Note:</b> <i>our concurrent work <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> adopts a similar training framework of small-scale cold-start SFT followed by large-scale RL training. Although both works coincide in this high-level idea, our work differs from R1 in key methodologies, including the data synthesis framework and RL algorithms.</i></p>
 
 ### **Format Tuning Through Imitation Learning** 
 This stage aims to fine-tune a pre-trained base LLM to imitate a few demonstrated reasoning trajectories with COAT reasoning format. To synthesize such COAT trajectories that incorporate trials
