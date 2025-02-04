@@ -101,10 +101,6 @@ menu:
       name: Home
       url: /
       weight: 5
-    - identifier: api
-      name: Resources
-      url: /resources
-      weight: 10
     - identifier: blog
       name: Blog
       url: /blog/

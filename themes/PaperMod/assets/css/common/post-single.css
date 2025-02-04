@@ -332,7 +332,7 @@
     display: inline-block;
     cursor: pointer;
     border: 0;
-    border-radius: 4px;
+    border-radius: 10px;
     line-height: 1;
     /* font-size: 1em; */
     letter-spacing: 0.05em;

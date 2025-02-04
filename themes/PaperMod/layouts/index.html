@@ -20,7 +20,15 @@
     </header>
     {{- if (ne (.Param "hide_summary") true) }}
     <div class="entry-content">
-      <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+      <!-- remove "Paper", "Code", "Data", "Model", "Introduction" from summary only in the frist 30 charactor -->
+      {{- $summary := .Summary | plainify | htmlUnescape -}}
+      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Code|Data|Model|Introduction)(\W)` "$1$3" $summary -}}
+      {{- if gt (len $summary) 300 }}
+      {{- $summary = substr $summary 0 300 -}}
+      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Code|Data|Model|Introduction)(\W)` "$1$3" $summary -}}
+      {{- end }}
+      {{- $summary | markdownify -}}
+      {{ if .Truncated }}...{{ end }}
     </div>
     {{- end }}
     {{- if not (.Param "hide_meta") }}
