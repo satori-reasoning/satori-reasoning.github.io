@@ -311,12 +311,9 @@ Given $\|\mathbf{v}\| = 5$ and $\|\mathbf{w}\| = 8,$ find the largest possible v
 #### **Satori&#39;s Response:**
 <div class="code-box">
 The formula for the projection of vector $\mathbf{v}$ onto vector $\mathbf{w}$ is given by:
-
-
 $$
-\operatorname{proj}_{\mathbf{w}} \mathbf{v} = \frac{\mathbf{v} \cdot \mathbf{w}}{\mathbf{w} \cdot \mathbf{w}} \mathbf{w}
+dv \operatorname{proj}_{\mathbf{w}} \mathbf{v} = \frac{\mathbf{v} \cdot \mathbf{w}}{\mathbf{w} \cdot \mathbf{w}} \mathbf{w}
 $$
-
 The magnitude of the projection $\|\operatorname{proj}_{\mathbf{w}} \mathbf{v}\|$ is:
 
 $$
@@ -330,16 +327,11 @@ $$
 $$
 
 The dot product $\mathbf{v} \cdot \mathbf{w}$ can be expressed in terms of the magnitudes of $\mathbf{v}$ and $\mathbf{w}$ and the cosine of the angle $\theta$ between them:
-
-
-
 $$
 \mathbf{v} \cdot \mathbf{w} = \|\mathbf{v}\| \|\mathbf{w}\| \cos \theta
 $$
 
 Given $\|\mathbf{v}\| = 5$ and $\|\mathbf{w}\| = 8$, we have:
-
-
 
 $$
 \mathbf{v} \cdot \mathbf{w} = 5 \cdot 8 \cdot \cos \theta = 40 \cos \theta
