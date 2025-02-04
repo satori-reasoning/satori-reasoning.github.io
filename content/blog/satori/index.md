@@ -310,7 +310,7 @@ Given $\|\mathbf{v}\| = 5$ and $\|\mathbf{w}\| = 8,$ find the largest possible v
 
 #### **Satori&#39;s Response:**
 <div class="code-box">
-The formula for the projection of vector \(\mathbf{v}\) onto vector \(\mathbf{w}\) is given by:
+The formula for the projection of vector $\mathbf{v}$ onto vector $\mathbf{w}$ is given by:
 
 
 $$
