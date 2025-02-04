@@ -66,10 +66,10 @@
     <p>
       {{- $summary := .Summary | plainify | htmlUnescape -}}
       <!-- remove "Paper", "Code", "Data", "Model", "Introduction" from summary only in the frist 30 charactor -->
-      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Code|Data|Model|Introduction)(\W)` "$1$3" $summary -}}
+      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Paper|Huggingface|Github|Introduction)(\W)` "$1$3" $summary -}}
       {{- if gt (len $summary) 300 }}
       {{- $summary = substr $summary 0 300 -}}
-      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Code|Data|Model|Introduction)(\W)` "$1$3" $summary -}}
+      {{- $summary = replaceRE `(?i)(^|\W)(Paper|Paper|Huggingface|Github|Introduction)(\W)` "$1$3" $summary -}}
       {{- end }}
       {{- $summary | markdownify -}}
       {{ if .Truncated }}...{{ end }}
