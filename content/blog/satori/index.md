@@ -36,7 +36,7 @@ show_word_count: true
 #   gradient: false
 #   blur: false
 ---
-{{< button href="" label="Paper" external=true >}}
+{{< button href="https://arxiv.org/pdf/2502.02508" label="Paper" external=true >}}
 {{< button href="https://github.com/satori-reasoning/Satori" label="Github" external=true >}}
 {{< button href="https://huggingface.co/Satori-reasoning" label="Huggingface" external=true >}}
 
