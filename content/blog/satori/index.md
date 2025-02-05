@@ -959,12 +959,14 @@ For questions, please:
 
 
 ## **Citation**
-(TODO)
 ```
-@article{TBD,
-  title={Satori: Reinforcement Learning with Chain-of-Action-Thought Enhances LLM Reasoning via Autoregressive Search},
-  author={TBD},
-  journal={TBD},
-  year={2025}
+@misc{shen2025satorireinforcementlearningchainofactionthought,
+      title={Satori: Reinforcement Learning with Chain-of-Action-Thought Enhances LLM Reasoning via Autoregressive Search}, 
+      author={Maohao Shen and Guangtao Zeng and Zhenting Qi and Zhang-Wei Hong and Zhenfang Chen and Wei Lu and Gregory Wornell and Subhro Das and David Cox and Chuang Gan},
+      year={2025},
+      eprint={2502.02508},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2502.02508}, 
 }
 ```
