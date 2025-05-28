@@ -49,7 +49,7 @@ params:
   show_share_buttons: true
   show_bread_crumbs: true
   hide_meta: false
-  math: false
+  math: true
 
   # single page only
   show_code_copy_buttons: true
@@ -114,13 +114,11 @@ markup:
     extensions:
       footnote: true
   highlight:
-    style: vs
-    noClasses: false
-    # anchorLineNos: true
     codeFences: true
-    # guessSyntax: true
-    # lineNos: true
-    # style: monokai
+    guessSyntax: false
+    noClasses: false
+    style: vs # 自己喜欢的配色
+
 outputs:
   home:
     - HTML

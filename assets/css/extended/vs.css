@@ -83,3 +83,8 @@
 /* GenericTraceback */ .chroma .gt {  }
 /* GenericUnderline */ .chroma .gl {  }
 /* TextWhitespace */ .chroma .w {  }
+/* diff deletions */
+.chroma .gd { color:#e73c3c; background:#ffecec; }
+/* diff insertions */
+.chroma .gi { color:#1a8605; background:#eaffea; }
+
