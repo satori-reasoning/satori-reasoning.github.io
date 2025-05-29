@@ -157,7 +157,7 @@ We refer to the resulting model $\pi_{\text{M-SFT}}$ as the mutation SFT model.
 Self-evolution requires the model to improve low-scoring patches on its own, without relying on reward models to select high-scoring examples. If so, we could eliminate the selection step (Line 3 in Algorithm), reducing scoring costs and sample usage. However, we find that **SFT alone cannot enable self-evolution**. We then introduce a reinforcement learning approach that trains the model to self-evolve without scoring or filtering.
 
 ### **4. Large‑Scale RL for Self‑Evolution**
-To *self-evolve*, the model must generate patches that maximize a scoring function $R$, given conditioning examples $\mathcal{E}$ from previous patches. This setup naturally aligns with the reinforcement learning (RL), where a policy $\pi$ is optimized to maximize expected rewards (i.e., scores) over time. Since our goal is to maximize the reward at the final iteration $T$, a naïve RL objective is:
+To *self-evolve*, the model must generate patches that maximize a scoring function $R$, given conditioning examples $\mathcal{E}$ from previous patches. This setup naturally aligns with reinforcement learning (RL), where a policy $\pi$ is optimized to maximize expected rewards (i.e., scores) over time. Since our goal is to maximize the reward at the final iteration $T$, a naïve RL objective is:
 <div class="code-box">
 $$
 \begin{align}
@@ -422,7 +422,7 @@ index 0b1e933..e732791 100644
 
 ------
 
-## **Commitment to Open-Source Communit**
+## **Commitment to Open-Source Community**
 
 We plan to provide the following resources:
 
@@ -436,7 +436,7 @@ We plan to provide the following resources:
   - Retrieval Model: `Satori‑SWE‑Retrieval-32B`
   - Retrieval Reward Model: `Satori‑SWE‑Retrieval-RM-32B`
 
-Stay tuned at our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
+Stay tuned on our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
 
 ------
 
@@ -449,7 +449,6 @@ Stay tuned at our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
 ### **Contributors**
 - Delin Chen, UMass Amherst
 - Zhenting Qi, Harvard
-- Zhenfang Chen, MIT-IBM Watson AI Lab
 - Wei Lu, SUTD
 - Gregory W. Wornell, MIT
 - Subhro Das, MIT-IBM Watson AI Lab
