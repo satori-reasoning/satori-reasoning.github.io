@@ -187,13 +187,13 @@ We use the *Qwen2.5-Coder-32B-Instruct model* as our base model for training Sat
 | Llama‑3 SWE‑RL            | 70 B     | 80      | 37.0     |
 | Llama‑3 SWE‑RL            | 70 B     | 500     | 41.0     |
 | **Satori‑SWE‑32B** | **32 B** | **1**   | **35.8** |
-| **Satori‑SWE‑32B**        | **32 B**     | **10**      |  **37.0**     |
+| **Satori‑SWE‑32B**        | **32 B**     | **10**      |  **38.9**     |
 | **Satori‑SWE‑32B**       | **32 B**     | **50**  | **41.6** |
 
 ## **Anaysis of SWE-Satori**
 We further present a comprehensive analysis of the proposed EvoScale approach. To simplify our analysis, we use ground-truth localization (retrieval) and focus on the code editing part.
 ### **Can LLMs Iteratively Evolve without Mutation SFT Training?**
-First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in Figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). Moreover, this iterative refinement capability can be learned effectively even with a small amount of training data. 
+First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in the figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). Moreover, this iterative refinement capability can be learned effectively even with a small amount of training data. 
 ![sft](/img/swe-satori/sft.png)
 
 ### **RL Enables Self-evolve Capability.**
@@ -201,12 +201,12 @@ While the mutation SFT model demonstrates evolutionary behavior when guided by a
 ![ablation_rl_evolution](/img/swe-satori/ablation_rl_evolution.png)
 
 ### **Do our SFT and RL Models Monotonically Improve Reward Scores over Iterations?**
-We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the Figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, the RL model trained with potential-based reward naturally learns to self-evolve without any external guidance. Its reward scores improve monotonically across iterations.
+We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, the RL model trained with potential-based reward naturally learns to self-evolve without any external guidance. Its reward scores improve monotonically across iterations.
 ![rm_score](/img/swe-satori/rm_score.png)
 
 
 ### **Evolutionary Test-time Scaling v.s. Other Test-time Scaling Methods.**
-Next, we further compare evolutionary test-time scaling with other test-time scaling methods. Starting from the RL model, we first randomly sample $N={5, 10, 15, 20, 25, 50}$ patch samples and let the reward model and unit tests select the best sample among the subsets. Also starting from the RL model, we let the model perform self-evolution with $K=5$ samples per iteration, up to four iterations ($20$ samples in total). The test-time scaling results presented in the Figure demonstrate both efficiency and effectiveness of evolutionary test-time scaling.
+Next, we further compare evolutionary test-time scaling with other test-time scaling methods. Starting from the RL model, we first randomly sample $N={5, 10, 15, 20, 25, 50}$ patch samples and let the reward model and unit tests select the best sample among the subsets. Also starting from the RL model, we let the model perform self-evolution with $K=5$ samples per iteration, up to four iterations ($20$ samples in total). The test-time scaling results presented in the figure demonstrate both efficiency and effectiveness of evolutionary test-time scaling.
 ![scaling_methods](/img/swe-satori/scaling_methods.png)
 
 
@@ -242,7 +242,7 @@ AttributeError: 'Contains' object has no attribute 'as_relational'
 
 </div>
 
-### Conditional Patch
+### Conditional Patch:
 #### Conditional patch 1 (Correct)
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
@@ -318,7 +318,7 @@ index 0b1e933..4980364 100644
      raise NotImplementedError()
 ```
 
-### Evolve Response
+### Evolve Response:
 #### Thinking Process
 <div class="code-box">
 1. Peer Patch Review:
@@ -391,7 +391,6 @@ Stay tuned on our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
 ### **Contributors**
 - Delin Chen, UMass Amherst
 - Zhenting Qi, Harvard
-- Zhenfang Chen, MIT-IBM Watson AI Lab
 - Wei Lu, SUTD
 - Gregory W. Wornell, MIT
 - Subhro Das, MIT-IBM Watson AI Lab
