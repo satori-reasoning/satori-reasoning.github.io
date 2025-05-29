@@ -126,7 +126,10 @@ Our goal is to enable sample-efficient test-time scaling, achieving stronger per
 
 ### **Can a language model naturally perform mutation?**
 Ideally, the mutation operator should generate patches that improve scores. However, we find that models trained with classical SFT—conditioned only on the issue and code context—struggle to refine existing patches. To this end, we propose a **two-stage SFT** to overcome this limitation.
-![algorithm](/img/swe-satori/algorithm.png)
+
+<div align="center">
+  <img src="/img/swe-satori/algorithm.png" alt="algorithm">
+</div>
 
 ### **3. Small-scale Mutation SFT**
 We introduce a two-stage supervised fine-tuning (SFT) process: classical SFT followed by mutation SFT. The classical SFT model is first trained and then used to generate conditioning examples for training the mutation SFT model.
