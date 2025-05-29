@@ -10,7 +10,60 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 01 Feb 2025 12:00:00 +0800</lastBuildDate><atom:link href="https://satori-reasoning.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 May 2025 12:00:00 +0800</lastBuildDate><atom:link href="https://satori-reasoning.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Satori-SWE: Evolutionary Test-Time Scaling for Sample-Efficient Software Engineering</title>
+      <link>https://satori-reasoning.github.io/blog/satori-swe/</link>
+      <pubDate>Sun, 25 May 2025 12:00:00 +0800</pubDate>
+      
+      <guid>https://satori-reasoning.github.io/blog/satori-swe/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Paper&lt;/a&gt;
+&lt;a href=&#34;https://github.com/satori-reasoning/Satori-SWE&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;
+&lt;a href=&#34;https://huggingface.co/Satori-reasoning&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Huggingface&lt;/a&gt;&lt;/p&gt;
+&lt;style&gt;
+.code-box {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    font-family: &#39;Menlo&#39;, Consolas, Monaco, &#39;Courier New&#39;, monospace;
+    font-size: 18px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 5px; 
+}
+
+.issue-box {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8f8f8; 
+    font-family: &#39;Menlo&#39;, Consolas, Monaco, &#39;Courier New&#39;, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 5px; 
+}
+
+.correct_patch {
+    background-color:rgb(207, 248, 206); 
+}
+
+.code-box b {
+    font-weight: 600 !important; /* Force stronger boldness */
+    color: #111111; /* Change text color to something more vibrant */
+}
+
+.code-box b, .code-box strong {
+    font-weight: bold !important;
+}
+
+&lt;/style&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;LLMs perform well on coding benchmarks like LiveCodeBench but struggle with real-world software engineering (SWE) tasks (&lt;a href=&#34;https://openreview.net/pdf?id=VTF8yNQM66&#34;&gt;Jimenez et al. 2024&lt;/a&gt;). Even large models like Claude reach only around 60% accuracy on SWE-bench, despite using carefully engineered prompting pipelines (&lt;a href=&#34;https://arxiv.org/pdf/2407.01489&#34;&gt;Xia et al. 2024&lt;/a&gt;). Smaller models (under 100B parameters) perform significantly worse, typically scoring below 10% in zero-shot settings and plateauing around 30% after supervised fine-tuning (SFT) (&lt;a href=&#34;https://arxiv.org/pdf/2412.21139&#34;&gt;Pan et al. 2024&lt;/a&gt;, &lt;a href=&#34;https://arxiv.org/pdf/2501.05040&#34;&gt;Xie et al. 2025&lt;/a&gt;) on GitHub issue datasets. Improving the performance of these small models remains a key challenge for practical deployment, where repeatedly querying large models is often too costly or inefficient.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Satori: Reinforcement Learning with Chain-of-Action-Thought Enhances LLM Reasoning via Autoregressive Search</title>
       <link>https://satori-reasoning.github.io/blog/satori/</link>

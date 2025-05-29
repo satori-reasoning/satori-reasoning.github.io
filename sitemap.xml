@@ -2,14 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://satori-reasoning.github.io/blog/satori-swe/</loc>
+    <lastmod>2025-05-25T12:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://satori-reasoning.github.io/blog/satori/</loc>
     <lastmod>2025-02-01T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://satori-reasoning.github.io/blog/</loc>
-    <lastmod>2025-02-01T12:00:00+08:00</lastmod>
+    <lastmod>2025-05-25T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://satori-reasoning.github.io/</loc>
-    <lastmod>2025-02-01T12:00:00+08:00</lastmod>
+    <lastmod>2025-05-25T12:00:00+08:00</lastmod>
   </url><url>
     <loc>https://satori-reasoning.github.io/categories/</loc>
   </url><url>
