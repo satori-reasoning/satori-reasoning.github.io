@@ -214,7 +214,7 @@ Next, we further compare evolutionary test-time scaling with other test-time sca
 The core idea of EvoScale is to use a mix of correct and incorrect patches as context to generate a
 correct patch. In this part, we present an example below to illustrate the capability.
 
-### **Issue Description:**
+### Issue Description
 
 <div class="code-box" markdown="1">
 Contains.as_set returns Contains:
