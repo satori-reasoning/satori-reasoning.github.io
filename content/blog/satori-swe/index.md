@@ -1,5 +1,5 @@
 ---
-title: "Satori-SWE: Evolutionary Test-Time Scaling for Sample-Efficient Software Engineering with Reinforcement Learning"
+title: "Satori-SWE: Evolutionary Test-Time Scaling for Sample-Efficient Software Engineering"
 date: 2025-05-25T12:00:00+08:00
 weight: 1
 # aliases: ["/first"]
@@ -46,6 +46,18 @@ show_word_count: true
     max-height: 350px;
     overflow-y: auto;
     padding: 10px;
+    font-family: 'Menlo', Consolas, Monaco, 'Courier New', monospace;
+    font-size: 18px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 5px; 
+}
+
+.issue-box {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
     background-color: #f8f8f8; 
     font-family: 'Menlo', Consolas, Monaco, 'Courier New', monospace;
     font-size: 14px;
@@ -53,6 +65,10 @@ show_word_count: true
     white-space: pre-wrap;
     word-wrap: break-word;
     border-radius: 5px; 
+}
+
+.correct_patch {
+    background-color:rgb(207, 248, 206); 
 }
 
 .code-box b {
@@ -73,18 +89,20 @@ show_word_count: true
 
 LLMs perform well on coding benchmarks like LiveCodeBench but struggle with real-world software engineering (SWE) tasks (<a href="https://openreview.net/pdf?id=VTF8yNQM66">Jimenez et al. 2024</a>). Even large models like Claude reach only around 60\% accuracy on SWE-bench, despite using carefully engineered prompting pipelines (<a href="https://arxiv.org/pdf/2407.01489">Xia et al. 2024</a>). Smaller models (under 100B parameters) perform significantly worse, typically scoring below 10\% in zero-shot settings and plateauing around 30\% after supervised fine-tuning (SFT) (<a href="https://arxiv.org/pdf/2412.21139">Pan et al. 2024</a>, <a href="https://arxiv.org/pdf/2501.05040">Xie et al. 2025</a>) on GitHub issue datasets. Improving the performance of these small models remains a key challenge for practical deployment, where repeatedly querying large models is often too costly or inefficient.
 
-Existing approaches primarily rely on supervised fine-tuning (SFT) with high-quality data, which is expensive to curate at scale. An alternative is test-time scaling: generating multiple outputs, scoring them using a verifier, and selecting the best one. Although effective, this strategy often requires excessive sampling and costly scoring. This work aims to explore a new research direction: sample-efficient test-time scaling methods that can identify correct solutions with fewer samples. We propose Evolutionary Test-Time Scaling (EvoScale) that treats generation as an evolutionary process. By iteratively refining outputs via selection and mutation, EvoScale shifts the output distribution toward higher-scoring regions. Our approach results in Satori-SWE-32B, a 32B model trained on open-source model and open-source data. Key features of Satori-SWE include:
+Existing approaches primarily rely on supervised fine-tuning (SFT) with high-quality data, which is expensive to curate at scale. An alternative is test-time scaling: generating multiple outputs, scoring them using a verifier, and selecting the best one. Although effective, this strategy often requires excessive sampling and costly scoring. This work aims to explore a new research direction: sample-efficient test-time scaling methods that can identify correct solutions with fewer samples. We propose **Evolutionary Test-Time Scaling (EvoScale)** that treats generation as an evolutionary process. By iteratively refining outputs via selection and mutation, EvoScale shifts the output distribution toward higher-scoring regions. Our approach results in **Satori-SWE-32B**, a 32B model trained on open-source model and data. Key features of Satori-SWE include:
 
-- A new perspective of formulating test-time scaling as an evolutionary process, improving sample efficiency for software engineering tasks.
-- A novel RL training approach that enables self-evolution, eliminating the need for external reward models or verifiers at inference time.
-- Satori-SWE-32B with EvoScale achieves performance comparable to models exceeding 100B parameters, while requiring only a small number of samples.
+- A new perspective of formulating **test-time scaling as an evolutionary process**, improving sample efficiency for software engineering tasks.
+- A novel **RL training approach that enables self-evolution**, eliminating the need for external reward models or verifiers at inference time.
+- Satori-SWE-32B with EvoScale achieves performance **comparable to models exceeding 100B parameters**, while requiring only a small number of samples.
 
 
 
 
 ## **Our Approach**
 ### **1. Preliminaries**
-![overview](/img/swe-satori/overview.png)
+<div align="center">
+  <img src="/img/swe-satori/overview.png" alt="overview" style="width:70%">
+</div>
 
 We study the problem of using LMs to resolve real-world GitHub issues, where each issue consists of a textual description and a corresponding code repository. This work follows pipeline-based methods that decompose the task into retrieval and editing. Retrieval refers to identifying the files or functions relevant to the issue, while editing involves generating the code changes needed to resolve it.
 
@@ -93,17 +111,21 @@ Formally, given an issue description $x$, the goal is to produce a code edit (i.
 
 
 ### **Why is test-time scaling sample-inefficient in SWE task?**
-Test-time scaling improves model performance during inference without training. For SWE task, correct solutions exist but are rarely sampled. As for hard issues, the model’s output distribution is not concentrated around high-scoring regions. The figure below shows reward score distribution of outputs from a SFT model, with high-scoring outputs concentrated in the long tail. Given a sample budget $N$, typical test-time scaling methods in SWE (<a href="https://arxiv.org/pdf/2412.21139">Pan et al. 2024</a>, <a href="https://arxiv.org/pdf/2502.18449">Wei et al. 2025</a>) draw $N$ outputs (patches) { $\{y\_i\}$ }$\_{i=1}^{N}$ from a frozen editor model $\pi$, score them with a score function $R$ (e.g., reward model or unit tests), and selects the best one $\arg\max_{y_i} R(x, y_i)$. While high-scoring outputs near the mode could be sampled easily, the challenge of test-time scaling is to identify high-scoring outputs from the tail of $\pi(\cdot \mid x, C(x))$. However, doing so typically requires a large sample size $N$, making the process sample-inefficient.
-![intro_kde](/img/swe-satori/intro_kde.png)
+Test-time scaling improves model performance during inference without training. For SWE task, correct solutions exist but are rarely sampled. As for hard issues, the model’s output distribution is not concentrated around high-scoring regions. The figure below shows reward score distribution of outputs from a SFT model, with high-scoring outputs concentrated in the long tail. Given a sample budget $N$, typical test-time scaling methods in SWE (<a href="https://arxiv.org/pdf/2412.21139">Pan et al. 2024</a>, <a href="https://arxiv.org/pdf/2502.18449">Wei et al. 2025</a>) draw $N$ outputs (patches) { $\{y\_i\}$ }$\_{i=1}^{N}$ from a frozen editor model $\pi$, score them with a score function $R$ (e.g., reward model or unit tests), and selects the best one $\arg\max_{y_i} R(x, y_i)$. While high-scoring outputs near the mode could be sampled easily, the challenge of test-time scaling is to identify high-scoring outputs from the tail of $\pi(\cdot \mid x, C(x))$. **However, doing so typically requires a large sample size $N$, making the process sample-inefficient.**
+<div align="center">
+  <img src="/img/swe-satori/intro_kde.png" alt="intro_kde" style="width:40%">
+</div>
 
 
 
 ### **2. Formulation: Patch Generation as Evolution**
-![intro_kde](/img/swe-satori/inference.png)
-Our goal is to enable sample-efficient test-time scaling, achieving stronger performance with fewer samples. We propose Evolutionary Test-Time Scaling (EvoScale), which iteratively refines generation by using earlier outputs to guide subsequent sampling. We recast patch generation for a GitHub issue as an evolutionary process and use a LLM as a *mutation operator* (<a href="https://arxiv.org/pdf/2305.00593">Shen et al. 2023</a>), leveraging its ability to produce syntactically and semantically valid patches. The objective is to explore the patch space with a small number of samples, identify high-scoring patches, and iteratively refine the generated patches. At each iteration $t$, the LM generates a batch of patches $\mathcal{Y}^{t+1} = \{y^{t+1}_1, \dots, y^{t+1}_M\}$ conditioned on a set of prior patches $\mathcal{E}^t$: $\mathcal{Y}^{t+1} \sim \pi(\cdot \mid x, C(x), \mathcal{E}^t)$. We refer to $\mathcal{E}^t$ as *conditioning examples* consisting of patches generated at iteration $t$. Following the selection step in evolutionary algorithms, $\mathcal{E}^t$ could be selected as the top-$K$ patches ranked by a scoring function $R$ (i.e., fitness function in evolutionary algorithms). Note that we find that our model after training can self-evolve without this selector.
+<div align="center">
+  <img src="/img/swe-satori/inference.png" alt="inference">
+</div>
+Our goal is to enable sample-efficient test-time scaling, achieving stronger performance with fewer samples. We propose <b>Evolutionary Test-Time Scaling (EvoScale), which iteratively refines generation by using earlier outputs to guide subsequent sampling.</b> We recast patch generation for a GitHub issue as an evolutionary process and use a LLM as a <i>mutation operator</i> (<a href="https://arxiv.org/pdf/2305.00593">Shen et al. 2023</a>), leveraging its ability to produce syntactically and semantically valid patches. The objective is to explore the patch space with a small number of samples, identify high-scoring patches, and iteratively refine the generated patches. At each iteration $t$, the LM generates a batch of patches $\mathcal{Y}^{t+1} = \{y^{t+1}_1, \dots, y^{t+1}_M\}$ conditioned on a set of prior patches $\mathcal{E}^t$: $\mathcal{Y}^{t+1} \sim \pi(\cdot \mid x, C(x), \mathcal{E}^t)$. We refer to $\mathcal{E}^t$ as <i>conditioning examples</i> consisting of patches generated at iteration $t$. Following the selection step in evolutionary algorithms, $\mathcal{E}^t$ could be selected as the top-$K$ patches ranked by a scoring function $R$ (i.e., fitness function in evolutionary algorithms). Note that we find that our model after training can self-evolve without this selector.
 
 ### **Can a language model naturally perform mutation?**
-Ideally, the mutation operator should generate patches that improve scores. However, we find that models trained with classical SFT—conditioned only on the issue and code context—struggle to refine existing patches. To this end, we propose a two-stage SFT to overcome this limitation.
+Ideally, the mutation operator should generate patches that improve scores. However, we find that models trained with classical SFT—conditioned only on the issue and code context—struggle to refine existing patches. To this end, we propose a **two-stage SFT** to overcome this limitation.
 ![algorithm](/img/swe-satori/algorithm.png)
 
 ### **3. Small-scale Mutation SFT**
@@ -132,7 +154,7 @@ $$
 We refer to the resulting model $\pi_{\text{M-SFT}}$ as the mutation SFT model.
 
 ### **Can SFT Model after the two-stage training learns to self-evolve?**
-Self-evolution requires the model to improve low-scoring patches on its own, without relying on reward models to select high-scoring examples. If so, we could eliminate the selection step (Line 3 in Algorithm), reducing scoring costs and sample usage. However, we find that SFT alone cannot enable self-evolution. We then introduce a reinforcement learning approach that trains the model to self-evolve without scoring or filtering.
+Self-evolution requires the model to improve low-scoring patches on its own, without relying on reward models to select high-scoring examples. If so, we could eliminate the selection step (Line 3 in Algorithm), reducing scoring costs and sample usage. However, we find that **SFT alone cannot enable self-evolution**. We then introduce a reinforcement learning approach that trains the model to self-evolve without scoring or filtering.
 
 ### **4. Large‑Scale RL for Self‑Evolution**
 To *self-evolve*, the model must generate patches that maximize a scoring function $R$, given conditioning examples $\mathcal{E}$ from previous patches. This setup naturally aligns with the reinforcement learning (RL), where a policy $\pi$ is optimized to maximize expected rewards (i.e., scores) over time. Since our goal is to maximize the reward at the final iteration $T$, a naïve RL objective is:
@@ -147,12 +169,13 @@ R(x, y^t), & t = T \\
 \end{align} 
 $$
 </div>
-This objective focuses solely on maximizing the final reward. However, it presents two key challenges: 
-- Rewards are sparse, with feedback only at iteration $T$, making learning inefficient (<a href="https://arxiv.org/pdf/2502.02508">Shen et al. 2025</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f96af360d2a1b1585c3e3a5b82ba4ef7-Paper-Conference.pdf">Lee et al. 2024</a>).
-- Generating full $T$-step trajectories is computationally expensive (<a href="https://openreview.net/pdf?id=4FWAwZtd2n">Snell et al. 2025</a>).
+This objective focuses solely on maximizing the final reward. However, it presents two key challenges:
+
+- **Rewards are sparse**, with feedback only at iteration $T$, making learning inefficient (<a href="https://arxiv.org/pdf/2502.02508">Shen et al. 2025</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/f96af360d2a1b1585c3e3a5b82ba4ef7-Paper-Conference.pdf">Lee et al. 2024</a>).
+- Generating full $T$-step trajectories is **computationally expensive** (<a href="https://openreview.net/pdf?id=4FWAwZtd2n">Snell et al. 2025</a>).
 
 
-We address the sparse reward challenge using *potential-based reward shaping* (<a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/NgHaradaRussell-shaping-ICML1999.pdf">Ng et al. 1999</a>), where the potential function is defined as $\Phi(y) = R(x, y)$. The potential reward at step~$t$ is:
+We address the sparse reward challenge using ***potential-based reward shaping*** (<a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/NgHaradaRussell-shaping-ICML1999.pdf">Ng et al. 1999</a>), where the potential function is defined as $\Phi(y) = R(x, y)$. The potential reward at step-$t$ is:
 <div class="code-box">
 $$
 \begin{align}
@@ -170,13 +193,13 @@ $$
 \end{align} 
 $$
 </div>
-This objective encourages the model to generate patches that consistently improve upon previous ones. To ensure the outputs follow the required syntax, we incorporate a formatting penalty term $F$ into the reward function.
+This objective encourages the model to generate patches that consistently improve upon previous ones. To ensure the outputs follow the required syntax, we incorporate a formatting penalty term $F$ (<i>string matching</i> and <i>syntax checking</i>) into the reward function.
 
 ## **Benchmarking Performance on SWE‑Bench‑Verified**
-We use the *Qwen2.5-Coder-32B-Instruct model* as our base model for training Satori-SWE-32B. Through the two-stage SFT training and RL training, Satori-SWE-32B outperforms all small-scale models under greedy decoding, while achieving comparable performance with current SOTA SWE-RL with smaller model scale (32B v.s. 70B),  much fewer training data (30K v.s. million-scale) and test-time scaling samples (50 v.s. 500).
+We use the *Qwen2.5-Coder-32B-Instruct model* as our base model for training Satori-SWE-32B. Through the two-stage SFT training and RL training, **Satori-SWE-32B outperforms all small-scale models** under greedy decoding, while achieving comparable performance with current SOTA SWE-RL with smaller model scale (32B v.s. 70B),  much fewer training data (30K v.s. million-scale) and test-time scaling samples (50 v.s. 500).
 
 
-| Model                     | Params   | Samples | Acc. (%) |
+<!-- | Model                     | Params   | Samples | Acc. (%) |
 | ------------------------- | -------- | ------- | -------- |
 | GPT‑4o (Agentless)        | –        | 1       | 38.8     |
 | Claude 3.5 (Agentless)    | –        | 1       | 50.8     |
@@ -188,26 +211,61 @@ We use the *Qwen2.5-Coder-32B-Instruct model* as our base model for training Sat
 | Llama‑3 SWE‑RL            | 70 B     | 500     | 41.0     |
 | **Satori‑SWE‑32B** | **32 B** | **1**   | **35.8** |
 | **Satori‑SWE‑32B**        | **32 B**     | **10**      |  **37.0**     |
-| **Satori‑SWE‑32B**       | **32 B**     | **50**  | **41.6** |
+| **Satori‑SWE‑32B**       | **32 B**     | **50**  | **41.6** | -->
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 30%; text-align: center;">Model</th>
+      <th style="width: 15%; text-align: center;">Params</th>
+      <th style="width: 15%; text-align: center;">Best@N</th>
+      <th style="width: 20%; text-align: center;">Accuracy (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align: center;">GPT‑4o (Agentless)</td><td style="text-align: center;">–</td><td style="text-align: center;">1</td><td style="text-align: center;">38.8</td></tr>
+    <tr><td style="text-align: center;">Claude 3.5 (Agentless)</td><td style="text-align: center;">–</td><td style="text-align: center;">1</td><td style="text-align: center;">50.8</td></tr>
+    <tr><td style="text-align: center;">DeepSeek‑V3 (Agentless)</td><td style="text-align: center;">–</td><td style="text-align: center;">–</td><td style="text-align: center;">42.0</td></tr>
+    <tr><td style="text-align: center;">SWE‑Fixer</td><td style="text-align: center;">72 B</td><td style="text-align: center;">1</td><td style="text-align: center;">30.2</td></tr>
+    <tr><td style="text-align: center;">SWE‑Gym‑32B</td><td style="text-align: center;">32 B</td><td style="text-align: center;">1</td><td style="text-align: center;">20.6</td></tr>
+    <tr><td style="text-align: center;">SWE‑Gym‑32B</td><td style="text-align: center;">32 B</td><td style="text-align: center;">16</td><td style="text-align: center;">32.0</td></tr>
+    <tr><td style="text-align: center;">Llama‑3 SWE‑RL</td><td style="text-align: center;">70 B</td><td style="text-align: center;">80</td><td style="text-align: center;">37.0</td></tr>
+    <tr><td style="text-align: center;">Llama‑3 SWE‑RL</td><td style="text-align: center;">70 B</td><td style="text-align: center;">500</td><td style="text-align: center;">41.0</td></tr>
+    <tr><td style="text-align: center;"><b>Satori‑SWE‑32B</b></td><td style="text-align: center;"><b>32 B</b></td><td style="text-align: center;"><b>1</b></td><td style="text-align: center;"><b>35.8</b></td></tr>
+    <tr><td style="text-align: center;"><b>Satori‑SWE‑32B</b></td><td style="text-align: center;"><b>32 B</b></td><td style="text-align: center;"><b>10</b></td><td style="text-align: center;"><b>38.9</b></td></tr>
+    <tr><td style="text-align: center;"><b>Satori‑SWE‑32B</b></td><td style="text-align: center;"><b>32 B</b></td><td style="text-align: center;"><b>25</b></td><td style="text-align: center;"><b>40.2</b></td></tr>
+    <tr><td style="text-align: center;"><b>Satori‑SWE‑32B</b></td><td style="text-align: center;"><b>32 B</b></td><td style="text-align: center;"><b>50</b></td><td style="text-align: center;"><b>41.6</b></td></tr>
+  </tbody>
+</table>
+
+
 
 ## **Anaysis of SWE-Satori**
 We further present a comprehensive analysis of the proposed EvoScale approach. To simplify our analysis, we use ground-truth localization (retrieval) and focus on the code editing part.
 ### **Can LLMs Iteratively Evolve without Mutation SFT Training?**
-First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in Figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). Moreover, this iterative refinement capability can be learned effectively even with a small number of training data. 
-![sft](/img/swe-satori/sft.png)
+First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in Figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). <b>Moreover, this iterative refinement capability can be learned effectively even with a small number of training data.</b>
+<div align="center">
+  <img src="/img/swe-satori/sft.png" alt="sft" style="width:60%">
+</div>
 
 ### **RL Enables Self-evolve Capability.**
-While mutation SFT model demonstrates evolutionary behavior when guided by a reward model, we further examine whether it can self-evolve without such guidance. Specifically, instead of selecting the top-$K$ candidates to ensure generation quality, we allow the model to generate $M=K=5$ random samples for the next iteration of conditional generation. However, the SFT model fails to learn self-evolution without reward model selection. Interestingly, RL training significantly improves the SFT model in two key aspects. First, RL substantially boosts the model's greedy performance, surpassing even the Best@$N$ performance of 30 randomly generated samples from the SFT model. Second, we observe that the RL-trained model exhibits strong self-evolution capability: even when conditioned on its random outputs, the model can self-refine and improve performance across iterations without reward model guidance.
-![ablation_rl_evolution](/img/swe-satori/ablation_rl_evolution.png)
+While mutation SFT model demonstrates evolutionary behavior when guided by a reward model, we further examine whether it can self-evolve without such guidance. Specifically, instead of selecting the top-$K$ candidates to ensure generation quality, we allow the model to generate $M=K=5$ random samples for the next iteration of conditional generation. However, the SFT model fails to learn self-evolution without reward model selection. Interestingly, RL training significantly improves the SFT model in two key aspects. First, **RL substantially boosts the model's greedy performance**, surpassing even the Best@$N$ performance of 30 randomly generated samples from the SFT model. Second, we observe that the **RL-trained model exhibits strong self-evolution capability**: even when conditioned on its random outputs, the model can self-refine and improve performance across iterations without reward model guidance.
+<div align="center">
+  <img src="/img/swe-satori/ablation_rl_evolution.png" alt="ablation_rl_evolution" style="width:60%">
+</div>
 
 ### **Do our SFT and RL Models Monotonically Improve Reward Scores over Iterations?**
-We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the Figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, the RL model trained with potential-based reward, naturally learns to self-evolve without any external guidance. Its reward scores improve monotonically across iterations.
-![rm_score](/img/swe-satori/rm_score.png)
+We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the Figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, **the RL model trained with potential-based reward, naturally learns to self-evolve without any external guidance.** Its reward scores improve monotonically across iterations.
+<div align="center">
+  <img src="/img/swe-satori/rm_score.png" alt="rm_score" style="width:60%">
+</div>
 
 
 ### **Evolutionary Test-time Scaling v.s. Other Test-time Scaling Methods.**
-Next, we further compare evolutionary test-time scaling with other test-time scaling methods. Starting from the RL model, we first randomly sample $N={5, 10, 15, 20, 25, 50}$ patch samples and let the reward model and unit tests select the best sample among the subsets. Also starting from the RL model, we let the model perform self-evolution with $K=5$ samples per iteration, up to four iterations ($20$ samples in total). The test-time scaling results presented in the Figure demonstrate both efficiency and effectiveness of evolutionary test-time scaling.
-![scaling_methods](/img/swe-satori/scaling_methods.png)
+Next, we further compare evolutionary test-time scaling with other test-time scaling methods. Starting from the RL model, we first randomly sample $N={5, 10, 15, 20, 25, 50}$ patch samples and let the reward model and unit tests select the best sample among the subsets. Also starting from the RL model, we let the model perform self-evolution with $K=5$ samples per iteration, up to four iterations ($20$ samples in total). The test-time scaling results presented in the Figure demonstrate **both efficiency and effectiveness of evolutionary test-time scaling.**
+<div align="center">
+  <img src="/img/swe-satori/scaling_methods.png" alt="scaling_methods" style="width:60%">
+</div>
 
 
 ## **Demo Examples**
@@ -216,7 +274,7 @@ correct patch. In this part, we present an example below to illustrate the capab
 
 ### Issue Description
 
-<div class="code-box" markdown="1">
+<div class="issue-box" markdown="1">
 Contains.as_set returns Contains:
 
 ```python
@@ -242,8 +300,8 @@ AttributeError: 'Contains' object has no attribute 'as_relational'
 
 </div>
 
-### Conditional Patch
-#### Conditional patch 1 (Correct)
+### Conditional Patches
+#### **Conditional patch 1 ✅**
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..3fd780b 100644
@@ -257,7 +315,7 @@ index 0b1e933..3fd780b 100644
 +        return self.args[1]
 ```
 
-#### Conditional patch 2 (Correct)
+#### **Conditional patch 2 ✅**
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..4c089aa 100644
@@ -270,7 +328,7 @@ index 0b1e933..4c089aa 100644
 +        return self.args[1]
 ```
 
-#### Conditional patch 3 (Correct)
+#### **Conditional patch 3 ✅**
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..985c88e 100644
@@ -284,7 +342,7 @@ index 0b1e933..985c88e 100644
 +        return self.args[1]
 ```
 
-#### Conditional patch 4 (Correct)
+#### **Conditional patch 4 ✅**
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..e732791 100644
@@ -297,7 +355,7 @@ index 0b1e933..e732791 100644
 +        return self.args[1]
 ```
 
-#### Conditional patch 5 (Wrong)
+#### **Conditional patch 5 ❌**
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..4980364 100644
@@ -319,8 +377,8 @@ index 0b1e933..4980364 100644
 ```
 
 ### Evolve Response
-#### Thinking Process
-<div class="code-box">
+#### **Thinking Process**
+<div class="issue-box">
 1. Peer Patch Review:
 
 - Patch 1: This patch correctly identifies that the set being contained in (self.args[1]) is the most meaningful set representation of a Contains object. The implementation is simple and correct.
@@ -349,7 +407,7 @@ index 0b1e933..4980364 100644
    - The fix is to modify this method to return self.args[1].
 </div>
 
-#### Evolved Patch
+#### **Evolved Patch** ✅
 ```diff
 diff --git a/sympy/sets/contains.py b/sympy/sets/contains.py
 index 0b1e933..e732791 100644
@@ -369,7 +427,7 @@ index 0b1e933..e732791 100644
 We plan to provide the following resources:
 
 - 📜 **Paper** with detailed implementation details in Appendix.
-- 🧩 SFT data with CoT, Mutation SFT data with CoT, and RL data.
+- 🧩 [SFT data with CoT, Mutation SFT data with CoT](https://huggingface.co/datasets/Satori-reasoning/Satori-SWE-two-stage-SFT-data), and [RL data](https://huggingface.co/datasets/Satori-reasoning/SWE-Satori-RL-data).
 - ⚙️ Code for EvoScale Inference Piepline & RL training framework.
 - 🏋️‍♂️ Model Checkpoints:
   - Code Editing Model (SFT): `Satori‑SWE‑SFT-32B`
