@@ -93,7 +93,7 @@ Formally, given an issue description $x$, the goal is to produce a code edit (i.
 
 
 ### **Why is test-time scaling sample-inefficient in SWE task?**
-Test-time scaling improves model performance during inference without training. For SWE task, correct solutions exist but are rarely sampled. As for hard issues, the model’s output distribution is not concentrated around high-scoring regions. The figure below shows reward score distribution of outputs from a SFT model, with high-scoring outputs concentrated in the long tail. Given a sample budget $N$, typical test-time scaling methods in SWE (<a href="https://arxiv.org/pdf/2412.21139">Pan et al. 2024</a>, <a href="https://arxiv.org/pdf/2502.18449">Wei et al. 2025</a>) draw $N$ outputs (patches) { $\{y\_i\}$ }$\_{i=1}^{N}$ from a frozen editor model $\pi$, score them with a score function $R$ (e.g., reward model or unit tests), and selects the best one $\arg\max_{y_i} R(x, y_i)$. While high-scoring outputs near the mode could be sampled easily, the challenge of test-time scaling is to identify high-scoring outputs from the tail of $\pi(\cdot \mid x, C(x))$. However, doing so typically requires a large sample size $N$, making the process sample-inefficient.
+Test-time scaling improves model performance during inference without training. For the SWE task, correct solutions exist but are rarely sampled. As for hard issues, the model’s output distribution is not concentrated around high-scoring regions. The figure below shows the reward score distribution of outputs from a SFT model, with high-scoring outputs concentrated in the long tail. Given a sample budget $N$, typical test-time scaling methods in SWE (<a href="https://arxiv.org/pdf/2412.21139">Pan et al. 2024</a>, <a href="https://arxiv.org/pdf/2502.18449">Wei et al. 2025</a>) draw $N$ outputs (patches) { $\{y\_i\}$ }$\_{i=1}^{N}$ from a frozen editor model $\pi$, score them with a score function $R$ (e.g., reward model or unit tests), and selects the best one $\arg\max_{y_i} R(x, y_i)$. While high-scoring outputs near the mode could be sampled easily, the challenge of test-time scaling is to identify high-scoring outputs from the tail of $\pi(\cdot \mid x, C(x))$. However, doing so typically requires a large sample size $N$, making the process sample-inefficient.
 ![intro_kde](/img/swe-satori/intro_kde.png)
 
 
@@ -132,10 +132,10 @@ $$
 We refer to the resulting model $\pi_{\text{M-SFT}}$ as the mutation SFT model.
 
 ### **Can SFT Model after the two-stage training learns to self-evolve?**
-Self-evolution requires the model to improve low-scoring patches on its own, without relying on reward models to select high-scoring examples. If so, we could eliminate the selection step (Line 3 in Algorithm), reducing scoring costs and sample usage. However, we find that SFT alone cannot enable self-evolution. We then introduce a reinforcement learning approach that trains the model to self-evolve without scoring or filtering.
+Self-evolution requires the model to improve low-scoring patches on its own, without relying on reward models to select high-scoring examples. If so, we could eliminate the selection step (Line 3 in the Algorithm), reducing scoring costs and sample usage. However, we find that SFT alone cannot enable self-evolution. We then introduce a reinforcement learning approach that trains the model to self-evolve without scoring or filtering.
 
 ### **4. Large‑Scale RL for Self‑Evolution**
-To *self-evolve*, the model must generate patches that maximize a scoring function $R$, given conditioning examples $\mathcal{E}$ from previous patches. This setup naturally aligns with the reinforcement learning (RL), where a policy $\pi$ is optimized to maximize expected rewards (i.e., scores) over time. Since our goal is to maximize the reward at the final iteration $T$, a naïve RL objective is:
+To *self-evolve*, the model must generate patches that maximize a scoring function $R$, given conditioning examples $\mathcal{E}$ from previous patches. This setup naturally aligns with reinforcement learning (RL), where a policy $\pi$ is optimized to maximize expected rewards (i.e., scores) over time. Since our goal is to maximize the reward at the final iteration $T$, a naïve RL objective is:
 <div class="code-box">
 $$
 \begin{align}
@@ -193,15 +193,15 @@ We use the *Qwen2.5-Coder-32B-Instruct model* as our base model for training Sat
 ## **Anaysis of SWE-Satori**
 We further present a comprehensive analysis of the proposed EvoScale approach. To simplify our analysis, we use ground-truth localization (retrieval) and focus on the code editing part.
 ### **Can LLMs Iteratively Evolve without Mutation SFT Training?**
-First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in Figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). Moreover, this iterative refinement capability can be learned effectively even with a small number of training data. 
+First, we investigate whether the mutation SFT is necessary for LLMs to learn how to iteratively improve their generations. Specifically, we fine-tune base LLMs using either classical SFT (without conditional generation) or mutation SFT. As shown in Figure, models trained with classical SFT fail to naturally improve their outputs when conditioned on previous samples. In contrast, mutation SFT enables the model to iteratively improve under the guidance of a reward model. The performance of the mutation SFT model at later iterations can surpass the classical SFT model by scaling up the samples (e.g., Best@40). Moreover, this iterative refinement capability can be learned effectively even with a small amount of training data. 
 ![sft](/img/swe-satori/sft.png)
 
 ### **RL Enables Self-evolve Capability.**
-While mutation SFT model demonstrates evolutionary behavior when guided by a reward model, we further examine whether it can self-evolve without such guidance. Specifically, instead of selecting the top-$K$ candidates to ensure generation quality, we allow the model to generate $M=K=5$ random samples for the next iteration of conditional generation. However, the SFT model fails to learn self-evolution without reward model selection. Interestingly, RL training significantly improves the SFT model in two key aspects. First, RL substantially boosts the model's greedy performance, surpassing even the Best@$N$ performance of 30 randomly generated samples from the SFT model. Second, we observe that the RL-trained model exhibits strong self-evolution capability: even when conditioned on its random outputs, the model can self-refine and improve performance across iterations without reward model guidance.
+While the mutation SFT model demonstrates evolutionary behavior when guided by a reward model, we further examine whether it can self-evolve without such guidance. Specifically, instead of selecting the top-$K$ candidates to ensure generation quality, we allow the model to generate $M=K=5$ random samples for the next iteration of conditional generation. However, the SFT model fails to learn self-evolution without reward model selection. Interestingly, RL training significantly improves the SFT model in two key aspects. First, RL substantially boosts the model's greedy performance, surpassing even the Best@$N$ performance of 30 randomly generated samples from the SFT model. Second, we observe that the RL-trained model exhibits strong self-evolution capability: even when conditioned on its random outputs, the model can self-refine and improve performance across iterations without reward model guidance.
 ![ablation_rl_evolution](/img/swe-satori/ablation_rl_evolution.png)
 
 ### **Do our SFT and RL Models Monotonically Improve Reward Scores over Iterations?**
-We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the Figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, the RL model trained with potential-based reward, naturally learns to self-evolve without any external guidance. Its reward scores improve monotonically across iterations.
+We further analyze the evolutionary behavior of the SFT and RL models by measuring the average reward score of the patch samples generated at each iteration. As shown in the Figure, although the SFT model learns to iteratively improve reward scores, it relies on the reward model to select high-quality conditioning examples to achieve significant improvements. In contrast, the RL model trained with potential-based reward naturally learns to self-evolve without any external guidance. Its reward scores improve monotonically across iterations.
 ![rm_score](/img/swe-satori/rm_score.png)
 
 
@@ -364,11 +364,11 @@ index 0b1e933..e732791 100644
 
 ------
 
-## **Commitment to Open-Source Communit**
+## **Commitment to Open-Source Community**
 
 We plan to provide the following resources:
 
-- 📜 **Paper** with detailed implementation details in Appendix.
+- 📜 **Paper** with detailed implementation details in the Appendix.
 - 🧩 SFT data with CoT, Mutation SFT data with CoT, and RL data.
 - ⚙️ Code for EvoScale Inference Piepline & RL training framework.
 - 🏋️‍♂️ Model Checkpoints:
@@ -378,7 +378,7 @@ We plan to provide the following resources:
   - Retrieval Model: `Satori‑SWE‑Retrieval-32B`
   - Retrieval Reward Model: `Satori‑SWE‑Retrieval-RM-32B`
 
-Stay tuned at our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
+Stay tuned on our [GitHub](https://github.com/satori-reasoning/Satori-SWE).
 
 ------
 
