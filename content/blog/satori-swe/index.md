@@ -467,16 +467,16 @@ For questions, please:
 
 ------
 
-<!-- ## **Citation**
+## **Citation**
 
 ```bibtex
-@misc{zeng2025satoriswe,
-  title   = {Satori-SWE: Evolutionary Test-Time Scaling for Sample-Efficient Software Engineering with Reinforcement Learning},
-  author  = {Guangtao Zeng and Maohao Shen and Delin Chen and Zhenting Qi and Zhenfang Chen and Subhro Das and Dan Gutfreund and David Cox and Gregory Wornell and Wei Lu and Zhang-Wei Hong and Chuang Gan},
-  year    = {2025},
-  eprint  = {},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.SE},
-  url     = {}
+@misc{zeng2025satorisweevolutionarytesttimescaling,
+      title={Satori-SWE: Evolutionary Test-Time Scaling for Sample-Efficient Software Engineering}, 
+      author={Guangtao Zeng and Maohao Shen and Delin Chen and Zhenting Qi and Subhro Das and Dan Gutfreund and David Cox and Gregory Wornell and Wei Lu and Zhang-Wei Hong and Chuang Gan},
+      year={2025},
+      eprint={2505.23604},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.23604}, 
 }
-``` -->
+```
